@@ -1,5 +1,5 @@
 # YPlayer Google Drive Proxy
-Build with CodeIgniter 3, YDrive library, and lazyness
+Build with CodeIgniter 3, [YDrive](https://github.com/Yotsubal/YDrive-Google-Drive-Proxy) library, and lazyness
 
 Give me a star if you like this !
 ## Requirements
