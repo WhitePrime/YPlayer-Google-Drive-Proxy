@@ -2,6 +2,9 @@
 Build with CodeIgniter 3, YDrive library, and lazyness
 
 Give me a star if you like this !
+## Requirements
+PHP 7+
+
 ## Instalation 
 1. create database and edit `yplayer.config.php` with your database configuration
 2. import `yplayer.sql` into your database
