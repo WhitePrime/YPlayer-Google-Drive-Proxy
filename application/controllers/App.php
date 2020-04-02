@@ -71,7 +71,7 @@ class App extends CI_Controller {
 	    if(!isset($this->session->userdata["has_login"])) redirect("/auth/login");
 	    
 	    if($this->input->post("vid")) {
-	        $data = @file_get_contents(sprintf("https://content.googleapis.com/drive/v2/files/%s?key=AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw",$this->input->post("vid")));
+	        $data = @file_get_contents(sprintf("https://content.googleapis.com/drive/v2/files/%s?supportsTeamDrives=true&key=AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw",$this->input->post("vid")));
 	        $json = json_decode($data,true);
 	        if(!$data) {
 	            $this->session->set_flashdata("msg","Please input a valid ID");
