@@ -18,6 +18,24 @@ class App extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	private function getDriveID($url)
+	{
+	    $filter1 = preg_match('/drive\.google\.com\/open\?id\=(.*)/', $url, $fileid1);
+	    $filter2 = preg_match('/drive\.google\.com\/file\/d\/(.*?)\//', $url, $fileid2);
+	    $filter3 = preg_match('/drive\.google\.com\/uc\?id\=(.*?)\&/', $url, $fileid3);
+	    if ($filter1) {
+		$fileid = $fileid1[1];
+	    } else if ($filter2) {
+		$fileid = $fileid2[1];
+	    } else if ($filter3) {
+		$fileid = $fileid3[1];
+	    } else {
+		$fileid = $url;
+	    }
+
+	    return ($fileid);
+	}
+	
 	public function login() {
 	    if(isset($this->session->userdata["has_login"])) redirect("/dashboard");
 	    if($this->input->post("username")) {
@@ -71,7 +89,8 @@ class App extends CI_Controller {
 	    if(!isset($this->session->userdata["has_login"])) redirect("/auth/login");
 	    
 	    if($this->input->post("vid")) {
-	        $data = @file_get_contents(sprintf("https://content.googleapis.com/drive/v2/files/%s?supportsTeamDrives=true&key=AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw",$this->input->post("vid")));
+		$video_id = $this->getDriveID($this->input->post("vid"));
+	        $data = @file_get_contents(sprintf("https://content.googleapis.com/drive/v2/files/%s?supportsTeamDrives=true&key=AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw",$video_id));
 	        $json = json_decode($data,true);
 	        if(!$data) {
 	            $this->session->set_flashdata("msg","Please input a valid ID");
